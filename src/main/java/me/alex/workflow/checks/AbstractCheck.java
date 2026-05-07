@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static me.alex.workflow.Main.LOGGER;
+
 public interface AbstractCheck {
 	List<Pattern> getFilePatterns();
 
@@ -12,6 +14,7 @@ public interface AbstractCheck {
 	default boolean checkFiles(List<File> file) {
 		boolean res = true;
 		for (File f : file) {
+			LOGGER.info("{}: Checking file {}", this.getClass().getSimpleName(), f.getName());
 			res &= checkFile(f);
 		}
 		return res;
