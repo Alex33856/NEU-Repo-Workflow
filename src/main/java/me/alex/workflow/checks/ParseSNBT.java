@@ -1,6 +1,5 @@
 package me.alex.workflow.checks;
 
-import me.alex.workflow.AbstractCheck;
 import net.minecraft.nbt.NbtUtils;
 
 import java.io.File;

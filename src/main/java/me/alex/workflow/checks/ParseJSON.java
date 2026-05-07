@@ -1,7 +1,6 @@
 package me.alex.workflow.checks;
 
 import com.google.gson.JsonParser;
-import me.alex.workflow.AbstractCheck;
 
 import java.io.BufferedReader;
 import java.io.File;

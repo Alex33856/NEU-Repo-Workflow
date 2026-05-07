@@ -1,6 +1,7 @@
 package me.alex.workflow;
 
 import com.mojang.logging.LogUtils;
+import me.alex.workflow.checks.AbstractCheck;
 import me.alex.workflow.checks.ParseJSON;
 import me.alex.workflow.checks.ParseSNBT;
 import net.minecraft.SharedConstants;

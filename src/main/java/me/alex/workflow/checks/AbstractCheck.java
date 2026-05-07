@@ -1,4 +1,4 @@
-package me.alex.workflow;
+package me.alex.workflow.checks;
 
 import java.io.File;
 import java.util.List;
