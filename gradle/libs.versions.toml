@@ -11,6 +11,8 @@ logging = "1.6.11"
 netty = "4.2.7.Final"
 oshi = "6.9.0"
 
+jspecify = "1.0.0"
+
 [libraries]
 minecraft = { module = "com.mojang:client", version.ref = "minecraft" }
 mc-authlib = { module = "com.mojang:authlib", version.ref = "authlib" }
@@ -25,6 +27,8 @@ mc-netty-buffer = { module = "io.netty:netty-buffer", version.ref = "netty" }
 mc-netty-codec = { module = "io.netty:netty-codec-base", version.ref = "netty" }
 mc-netty-common = { module = "io.netty:netty-common", version.ref = "netty" }
 mc-oshi = { module = "com.github.oshi:oshi-core", version.ref = "oshi" }
+
+jspecify = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
 
 [bundles]
 mc-libs = ["mc-authlib", "mc-brigadier", "mc-commons-lang", "mc-dfu", "mc-fastutil", "mc-gson", "mc-joml", "mc-logging",

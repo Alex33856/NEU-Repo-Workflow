@@ -27,6 +27,7 @@ repositories {
 dependencies {
 	implementation(libs.minecraft)
 	implementation(libs.bundles.mc.libs)
+	implementation(libs.jspecify)
 
 	testImplementation(platform("org.junit:junit-bom:6.0.0"))
 	testImplementation("org.junit.jupiter:junit-jupiter")
