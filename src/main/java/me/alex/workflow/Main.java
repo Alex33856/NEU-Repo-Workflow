@@ -15,11 +15,14 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class Main {
 	public static final Logger LOGGER = LogUtils.getLogger();
 	public static final Path REPO_BASE_PATH = Path.of(System.getenv("REPO_BASE_PATH"));
 	public static final ExecutorService EXECUTOR = Executors.newVirtualThreadPerTaskExecutor();
+
+	public static final AtomicBoolean ERRORS_DETECTED = new AtomicBoolean(false);
 
 	static AbstractCheck[] CHECKS = new AbstractCheck[]{
 		new ParseSNBT(),
@@ -36,7 +39,7 @@ public final class Main {
 					.anyMatch(pattern -> pattern.matcher(file.getPath()).matches())
 				).toList();
 				if (matchingFiles.isEmpty()) return;
-				check.checkFiles(matchingFiles);
+				if (!check.checkFiles(matchingFiles)) ERRORS_DETECTED.set(true);
 			}, EXECUTOR));
 		}
 		CompletableFuture.allOf(tasks.toArray(CompletableFuture[]::new)).join();
@@ -48,5 +51,6 @@ public final class Main {
 //		Bootstrap.bootStrap();
 		LOGGER.info("Done initializing!");
 		checkFiles();
+		if (ERRORS_DETECTED.get()) System.exit(1);
 	}
 }
