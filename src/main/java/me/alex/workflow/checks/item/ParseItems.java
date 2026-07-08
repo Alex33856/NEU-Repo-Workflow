@@ -22,6 +22,10 @@ import static me.alex.workflow.Main.LOGGER;
 public class ParseItems implements ParentCheck<ParseItems.Item> {
 	final String name = "Parse Items";
 
+	final List<ChildCheck<Item>> children = List.of(
+		new CheckNbtDisplay()
+	);
+
 	@Override
 	public String getName() {
 		return name;
@@ -29,9 +33,7 @@ public class ParseItems implements ParentCheck<ParseItems.Item> {
 
 	@Override
 	public List<ChildCheck<Item>> getChildren() {
-		return List.of(
-			new CheckNbtDisplay()
-		);
+		return children;
 	}
 
 	@Override

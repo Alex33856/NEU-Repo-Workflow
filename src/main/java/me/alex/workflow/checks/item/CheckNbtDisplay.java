@@ -5,7 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 import static me.alex.workflow.Main.LOGGER;
 
@@ -32,10 +31,5 @@ public class CheckNbtDisplay implements ChildCheck<ParseItems.Item> {
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	public List<Pattern> getFilePatterns() {
-		return List.of();
 	}
 }
