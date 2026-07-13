@@ -22,8 +22,10 @@ import static me.alex.workflow.Main.LOGGER;
 public class ParseItems implements ParentCheck<ParseItems.Item> {
 	final String name = "Parse Items";
 
-	final List<ChildCheck<Item>> children = List.of(
-		new CheckNbtDisplay()
+	final List<ChildCheck<ParseItems.Item>> children = List.of(
+		new CheckNbtDisplay(),
+//		new CheckHeadTexture(),
+		new CheckItemModel()
 	);
 
 	@Override
@@ -55,9 +57,11 @@ public class ParseItems implements ParentCheck<ParseItems.Item> {
 		return List.of(Pattern.compile("items/.*.json"));
 	}
 
-	public record Item(String itemId, String displayName, int damage, CompoundTag nbtTag, List<String> lore) {
+	public record Item(String itemId, String internalName, String displayName, int damage, CompoundTag nbtTag,
+	                   List<String> lore) {
 		public static final Codec<Item> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.STRING.fieldOf("itemid").forGetter(Item::itemId),
+			Codec.STRING.fieldOf("internalname").forGetter(Item::internalName),
 			Codec.STRING.fieldOf("displayname").forGetter(Item::displayName),
 			Codec.INT.fieldOf("damage").forGetter(Item::damage),
 			NbtHelper.LEGACY_SNBT_CODEC.fieldOf("nbttag").forGetter(Item::nbtTag),
