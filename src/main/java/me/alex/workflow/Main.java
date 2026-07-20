@@ -5,7 +5,7 @@ import me.alex.workflow.checks.AbstractCheck;
 import me.alex.workflow.checks.item.ParseItems;
 import me.alex.workflow.checks.ParseJSON;
 import me.alex.workflow.checks.ParseSNBT;
-import me.alex.workflow.checks.item.RedundantSNBT;
+import me.alex.workflow.checks.RedundantSNBT;
 import me.alex.workflow.utils.ChangedFiles;
 import net.minecraft.SharedConstants;
 import org.slf4j.Logger;

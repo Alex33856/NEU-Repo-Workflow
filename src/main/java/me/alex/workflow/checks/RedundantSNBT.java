@@ -1,8 +1,6 @@
-package me.alex.workflow.checks.item;
+package me.alex.workflow.checks;
 
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import me.alex.workflow.checks.AbstractCheck;
-import me.alex.workflow.checks.ParseSNBT;
 import org.jspecify.annotations.Nullable;
 
 import java.io.File;
