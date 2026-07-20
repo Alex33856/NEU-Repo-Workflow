@@ -29,7 +29,8 @@ public class ParseItems implements ParentCheck<ParseItems.Item> {
 		new CheckNbtDisplay(),
 //		new CheckHeadTexture(),
 		new CheckItemModel(),
-		new CheckItemRecipes()
+		new CheckItemRecipes(),
+		new CheckEnchantLevel()
 	);
 
 	public static final ObjectOpenHashSet<String> ITEMS = new ObjectOpenHashSet<>();
