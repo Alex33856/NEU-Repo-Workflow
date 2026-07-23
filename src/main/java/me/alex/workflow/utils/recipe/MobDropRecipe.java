@@ -1,10 +1,13 @@
 package me.alex.workflow.utils.recipe;
 
+import com.google.common.collect.Streams;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 public record MobDropRecipe(List<MobDropRecipe.Drop> drops) implements Recipe {
 	public static final MapCodec<MobDropRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -23,12 +26,27 @@ public record MobDropRecipe(List<MobDropRecipe.Drop> drops) implements Recipe {
 
 	@Override
 	public List<String> getOutputs() {
-		return drops.stream().map(Drop::itemId).toList();
+		return drops.stream().map(Drop::outputs).flatMap(Collection::stream).toList();
 	}
 
-	public record Drop(String itemId) {
-		public static final Codec<Drop> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+	public record Drop(String itemId, List<Drop> alternatives) {
+		private Drop(String itemId) {
+			this(itemId, List.of());
+		}
+
+		private static final Codec<Drop> PARTIAL_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.STRING.fieldOf("id").forGetter(Drop::itemId)
 		).apply(instance, Drop::new));
+
+		public static final Codec<Drop> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			Codec.STRING.fieldOf("id").forGetter(Drop::itemId),
+			Drop.PARTIAL_CODEC.listOf().optionalFieldOf("alternatives", List.of()).forGetter(Drop::alternatives)
+		).apply(instance, Drop::new));
+
+		public List<String> outputs() {
+			if (alternatives.isEmpty()) return List.of(itemId);
+			Stream<String> alternativeItemIds = alternatives.stream().map(Drop::itemId);
+			return Streams.concat(Stream.of(itemId), alternativeItemIds).toList();
+		}
 	}
 }
